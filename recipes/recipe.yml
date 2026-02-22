@@ -6,7 +6,7 @@ name: kinoite-nvidia-custom
 description: jhuang's custom kinoite OS image.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/kinoite-main
+base-image: ghcr.io/blue-build/base-images/fedora-kinoite-nvidia-open
 image-version: 43 # latest is also supported if you want new updates ASAP
 
 platforms:
@@ -25,12 +25,6 @@ modules:
   - type: bling
     install:
       - rpmfusion
-
-  - type: akmods
-    install:
-      - nvidia
-    nvidia-driver:
-      - nvidia-open
 
   - type: dnf
     repos:
