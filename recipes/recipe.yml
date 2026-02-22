@@ -33,12 +33,16 @@ modules:
         - avengemedia/danklinux
     install:
       packages:
+        - google-noto-sans-cjk-fonts
+        - google-noto-serif-cjk-fonts
+        - google-noto-color-emoji-fonts
         - git
         - zsh
         - fastfetch
         - stow
         - btop
         - virt-manager
+        - uv
         - cava
         - niri
         - kitty
@@ -82,16 +86,25 @@ modules:
         - UbuntuSans
         - Agave
         - Hermit
-        - CosmicShannsMono
+        - ComicShannsMono
         - ProggyClean
-        - Noto
+        - Terminus
         - NerdFontsSymbolsOnly
       google-fonts:
-        - Roboto
+        - Inter
         - Open Sans
+        - Libertinus Serif
+        - Libertinus Mono
+        - Libertinus Serif Display
+        - Libertinus Math
+        - Libertinus Sans
+
 
   - type: script
     scripts:
       - systemd_niri_add_wants_dms.sh
+
+  - type: brew
+    brew-analytics: false # disable telemetry
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
