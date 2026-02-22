@@ -27,6 +27,8 @@ modules:
       - rpmfusion
 
   - type: akmods
+    install:
+      - nvidia
     nvidia-driver:
       - nvidia-open
 
