@@ -3,11 +3,14 @@
 # image will be published to ghcr.io/<user>/<name>
 name: kinoite-nvidia-custom
 # description will be included in the image's metadata
-description: This is my personal OS image.
+description: jhuang's custom kinoite OS image.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 42 # latest is also supported if you want new updates ASAP
+base-image: ghcr.io/ublue-os/kinoite-main
+image-version: 43 # latest is also supported if you want new updates ASAP
+
+platforms:
+  - linux/amd64
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
@@ -16,18 +19,50 @@ modules:
     files:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+      - source: skel
+        destination: /etc/skel # copies files/skel/* into /etc/skel, which is the default skeleton directory for new users
+
+  - type: bling
+    install:
+      - rpmfusion
+
+  - type: akmods
+    nvidia-driver:
+      - nvidia-open
 
   - type: dnf
     repos:
       copr:
-        - atim/starship
+        - avengemedia/dms
+        - avengemedia/danklinux
     install:
       packages:
-        - micro
-        - starship
+        - git
+        - zsh
+        - fastfetch
+        - stow
+        - btop
+        - virt-manager
+        - cava
+        - niri
+        - kitty
+        - cmatrix
+        - wl-clipboard
+        - qt6-qtmultimedia
+        - quickshell
+        - material-symbols-fonts
+        - matugen
+        - dms
+        - cliphist
+        - dgop
+        - danksearch
+      exclude:
+        - alacritty
+        - waybar
+        - fuzzel
+        - swaylock
     remove:
       packages:
-        # example: removing firefox (in favor of the flatpak)
         # "firefox" is the main package, "firefox-langpacks" is a dependency
         - firefox
         - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
@@ -38,8 +73,44 @@ modules:
         scope: system
         # If no repo information is specified, Flathub will be used by default
         install: # system flatpaks we want all users to have and not remove
-          - org.mozilla.firefox
+          - com.google.Chrome
           - org.gnome.Loupe
+          - io.mpv.Mpv
+          - com.visualstudio.code
+          - org.telegram.desktop
       - scope: user # Also add Flathub user repo, but no user packages
+
+  - type: fonts
+    fonts:
+      nerd-fonts:
+        install:
+          - UbuntuSans
+          - Hermit
+          - CosmicShannsMono
+          - ProggyClean
+          - JetBrainsMono
+          - NerdFontsSymbolsOnly
+        google-fonts:
+          - Roboto
+          - Open Sans
+          - Inter
+        url-fonts:
+          - name: Maple Mono NF CN
+            url: 
+
+  - type: systemd
+    # system:
+    #   disabled:
+    user:
+      enabled:
+        - dms.service
+
+  - type: script
+    scripts:
+      - |
+        # Equvalent to `systemctl --user add-wants niri.service dms`
+        DEST_DIR="/usr/lib/systemd/user/niri.service.wants"
+        mkdir -p "$DEST_DIR"
+        ln -sf "../dms.service" "$DEST_DIR/dms.service"
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully

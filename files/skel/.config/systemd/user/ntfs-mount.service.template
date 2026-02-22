@@ -1,0 +1,12 @@
+[Unit]
+Description=Mount NTFS drive at user login
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/udisksctl mount -b /dev/disk/by-uuid/{uuid} --no-user-interaction --options "uid=%U,gid=%G,umask=002"
+ExecStop=/usr/bin/udisksctl unmount -b /dev/disk/by-uuid/{uuid} --no-user-interaction
+RemainAfterExit=yes
+
+[Install]
+WantedBy=graphical-session.target
