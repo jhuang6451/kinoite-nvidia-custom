@@ -93,13 +93,6 @@ modules:
         - name: Maple Mono NF CN
           url: 
 
-  - type: systemd
-    # system:
-    #   disabled:
-    user:
-      enabled:
-        - dms.service
-
   - type: script
     scripts:
       - |
