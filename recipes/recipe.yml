@@ -89,9 +89,6 @@ modules:
         - Roboto
         - Open Sans
         - Inter
-      url-fonts:
-        - name: Maple Mono NF CN
-          url: 
 
   - type: script
     scripts:
