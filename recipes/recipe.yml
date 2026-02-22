@@ -95,10 +95,6 @@ modules:
 
   - type: script
     scripts:
-      - |
-        # Equvalent to `systemctl --user add-wants niri.service dms`
-        DEST_DIR="/usr/lib/systemd/user/niri.service.wants"
-        mkdir -p "$DEST_DIR"
-        ln -sf "../dms.service" "$DEST_DIR/dms.service"
+      - systemd_niri_add_wants_dms.sh
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
