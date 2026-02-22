@@ -83,20 +83,19 @@ modules:
   - type: fonts
     fonts:
       nerd-fonts:
-        install:
-          - UbuntuSans
-          - Hermit
-          - CosmicShannsMono
-          - ProggyClean
-          - JetBrainsMono
-          - NerdFontsSymbolsOnly
-        google-fonts:
-          - Roboto
-          - Open Sans
-          - Inter
-        url-fonts:
-          - name: Maple Mono NF CN
-            url: 
+        - UbuntuSans
+        - Hermit
+        - CosmicShannsMono
+        - ProggyClean
+        - JetBrainsMono
+        - NerdFontsSymbolsOnly
+      google-fonts:
+        - Roboto
+        - Open Sans
+        - Inter
+      url-fonts:
+        - name: Maple Mono NF CN
+          url: 
 
   - type: systemd
     # system:
