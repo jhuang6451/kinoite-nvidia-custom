@@ -80,15 +80,15 @@ modules:
     fonts:
       nerd-fonts:
         - UbuntuSans
+        - Agave
         - Hermit
         - CosmicShannsMono
         - ProggyClean
-        - JetBrainsMono
+        - Noto
         - NerdFontsSymbolsOnly
       google-fonts:
         - Roboto
         - Open Sans
-        - Inter
 
   - type: script
     scripts:
